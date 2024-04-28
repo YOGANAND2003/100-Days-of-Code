@@ -36,27 +36,32 @@ class Solution{
     Node* deleteMid(Node* head)
     {
         // Your Code Here
-        Node* fast=head; 
-    	Node* slow=head;
-    	Node* temp=NULL;
-    	while(fast!=NULL){
-    	    fast=fast->next;
-    	    if(fast!=NULL){
-    	        fast=fast->next;
-    	        temp=slow;
-    	        
-    	        
-    	        slow=slow->next;
-    	        
-    	    }
-    	}
+        Node *temp = head;
+        Node *slow = head;
+        Node *fast = head;
+        if(head->next == NULL || head == NULL)
+            return NULL;     
+        while(slow && fast->next && fast->next->next)
+        {
+            temp = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        if(fast->next == NULL)
+        {
+            temp->next = slow->next;
+            free(slow);
+        }
+        if(fast->next && fast->next->next == NULL)
+        {
+            temp = slow->next;
+            slow->next = slow->next->next;
+            free(temp);
+        }
+        return head;
     	
-    	Node* del=slow;
-    	temp->next=del->next;
-    	del->next=NULL;
-    	delete del;
-    	return head;
-    	
+    
+        
     }
 };
 
